@@ -1,0 +1,84 @@
+#pragma version 10
+#pragma typetrack false
+
+// smart_contracts.hello_world.contract.HelloWorld.__algopy_entrypoint_with_init() -> uint64:
+main:
+    bytecblock 0x467574757265486972654772656574696e67
+    // smart_contracts/hello_world/contract.py:5
+    // class HelloWorld(ARC4Contract):
+    txn NumAppArgs
+    bz main_bare_routing@6
+    pushbytes 0x02bece11 // method "hello(string)string"
+    txna ApplicationArgs 0
+    match main_hello_route@5
+
+main_after_if_else@8:
+    // smart_contracts/hello_world/contract.py:5
+    // class HelloWorld(ARC4Contract):
+    pushint 0 // 0
+    return
+
+main_hello_route@5:
+    // smart_contracts/hello_world/contract.py:10
+    // @abimethod()
+    txn OnCompletion
+    !
+    assert // OnCompletion is not NoOp
+    txn ApplicationID
+    assert // can only call when not creating
+    // smart_contracts/hello_world/contract.py:5
+    // class HelloWorld(ARC4Contract):
+    txna ApplicationArgs 1
+    extract 2 0
+    // smart_contracts/hello_world/contract.py:10
+    // @abimethod()
+    callsub hello
+    dup
+    len
+    itob
+    extract 6 2
+    swap
+    concat
+    pushbytes 0x151f7c75
+    swap
+    concat
+    log
+    pushint 1 // 1
+    return
+
+main_bare_routing@6:
+    // smart_contracts/hello_world/contract.py:5
+    // class HelloWorld(ARC4Contract):
+    txn OnCompletion
+    bnz main_after_if_else@8
+    txn ApplicationID
+    !
+    assert // can only call when creating
+    pushint 1 // 1
+    return
+
+
+// smart_contracts.hello_world.contract.HelloWorld.hello(name: bytes) -> bytes:
+hello:
+    // smart_contracts/hello_world/contract.py:10-11
+    // @abimethod()
+    // def hello(self, name: String) -> String:
+    proto 1 1
+    // smart_contracts/hello_world/contract.py:16-17
+    // # Initialize hello string
+    // hello_string = "Hello, " + name
+    pushbytes "Hello, "
+    frame_dig -1
+    concat
+    // smart_contracts/hello_world/contract.py:19-20
+    // # Assign the hello string to the box storage
+    // self.hello_box.value = hello_string.bytes
+    bytec_0 // 0x467574757265486972654772656574696e67
+    box_del
+    pop
+    bytec_0 // 0x467574757265486972654772656574696e67
+    dig 1
+    box_put
+    // smart_contracts/hello_world/contract.py:22
+    // return hello_string
+    retsub
