@@ -1,6 +1,6 @@
 # DevRel Assessment Project
 
-The purpose of this project is to create a smart contact and modify the Algokit default "hello_world" project to save a string to box storage. The project was created using Algokit and the only files modified are linked below. The [deploy_config.py](/smart_contracts/hello_world/deploy_config.py) file operates on the following steps:
+The purpose of this project is to create a smart contact and modify the AlgoKit default "hello_world" project to save data to the contract's box storage. The project was created using AlgoKit and the only files modified are linked below. The [deploy_config.py](/smart_contracts/hello_world/deploy_config.py) file operates on the following steps:
 
 1. Deploy the smart contract defined in [contract.py](/smart_contracts/hello_world/contract.py).
 2. Send a transaction to fund the contract account (a minimum balance is required to utilize box storage).
@@ -42,4 +42,4 @@ After acquiring TestNet funds and deploying to TestNet, the results can be seen 
 ![TestNet final box storage](/images/testnet_app_box_storage.png)
 
 # Conclusion
-This results of the project were a success on both LocalNet and Testnet. This was a fun project and I really enjoyed diving into it.
+This results of the project were a success on both LocalNet and TestNet. This was a fun project and I really enjoyed diving into it.
